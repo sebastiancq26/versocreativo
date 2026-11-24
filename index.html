@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<script>document.documentElement.classList.add('js');</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Verso Creativo — Contenido profesional para marcas</title>
 <meta name="description" content="Videos, fotos y diseños que generan confianza en tu marca, con planes mensuales desde S/480. Un solo equipo, sin coordinar proveedores.">
@@ -315,6 +316,135 @@
   .prob-b .lab{color:var(--blue);}
 
   .plan.pop .tag{top:-12px;}
+
+  /* =========================================================
+     MOTION & FX — capa de animación
+     ========================================================= */
+  .scroll-progress{position:fixed;top:0;left:0;height:3px;width:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,var(--gold),#F7D98E 45%,var(--blue));z-index:300;pointer-events:none;}
+
+  /* Header compacto al hacer scroll */
+  header{transition:background .35s,box-shadow .35s;}
+  header.scrolled{background:rgba(10,14,27,.95);box-shadow:0 10px 30px -18px rgba(0,0,0,.8);}
+  .nav{transition:padding .35s;}
+  header.scrolled .nav{padding-block:10px;}
+  .nav-links a{position:relative;}
+  @media (min-width:1041px){
+    .nav-links a::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:2px;background:var(--gold);transform:scaleX(0);transform-origin:right;transition:transform .35s cubic-bezier(.2,.7,.2,1);}
+    .nav-links a:hover::after{transform:scaleX(1);transform-origin:left;}
+  }
+
+  /* Reveal al hacer scroll */
+  .reveal{opacity:0;transform:translateY(34px);transition:opacity .85s cubic-bezier(.2,.7,.2,1),transform .85s cubic-bezier(.2,.7,.2,1);transition-delay:var(--d,0ms);}
+  .reveal.from-left{transform:translateX(-44px);}
+  .reveal.from-right{transform:translateX(44px);}
+  .reveal.zoom{transform:scale(.93);}
+  .reveal.is-in{opacity:1;transform:none;}
+
+  /* Entrada del hero */
+  .js .hero .eyebrow,.js .hero .lede,.js .hero-actions,.js .hero-frame,.js .hero .strip{opacity:0;}
+  .js .hero h1{visibility:hidden;}
+  .hero.go h1{visibility:visible;}
+  .hero h1 .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.08em;margin-bottom:-.08em;}
+  .hero h1 .w > i{display:inline-block;font-style:normal;transform:translateY(112%);}
+  .hero.go h1 .w > i{animation:wordUp .95s cubic-bezier(.2,.75,.15,1) both;animation-delay:calc(.3s + var(--i) * 60ms);}
+  .hero.go .eyebrow{animation:fadeUp .7s .1s both cubic-bezier(.2,.7,.2,1);}
+  .hero.go .lede{animation:fadeUp .8s .95s both cubic-bezier(.2,.7,.2,1);}
+  .hero.go .hero-actions{animation:fadeUp .8s 1.1s both cubic-bezier(.2,.7,.2,1);}
+  .hero.go .hero-frame{animation:frameIn 1.2s .5s both cubic-bezier(.2,.7,.2,1);}
+  .hero.go .corner{animation:cornerIn .7s 1.35s both cubic-bezier(.2,.8,.2,1.3);}
+  .hero.go .strip{animation:fadeUp .9s 1.3s both cubic-bezier(.2,.7,.2,1);}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+  @keyframes wordUp{to{transform:translateY(0)}}
+  @keyframes frameIn{from{opacity:0;transform:translateY(34px) scale(.95);filter:blur(8px)}to{opacity:1;transform:none;filter:blur(0)}}
+  @keyframes cornerIn{from{opacity:0;transform:scale(2.2)}to{opacity:1;transform:none}}
+
+  /* Cámara del hero viva */
+  .hero-frame svg{transform:perspective(1000px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .5s cubic-bezier(.2,.7,.2,1);}
+  .fx-lens{transform-box:fill-box;transform-origin:center;stroke-dasharray:70 16;animation:lensSpin 9s linear infinite;}
+  .fx-iris{transform-box:fill-box;transform-origin:center;animation:iris 4.5s ease-in-out infinite;}
+  .fx-rec{animation:recBlink 1.2s steps(1) infinite;}
+  .fx-beams{animation:beams 2.6s ease-in-out infinite;}
+  .fx-glint{animation:glint 4.5s ease-in-out infinite;}
+  @keyframes lensSpin{to{transform:rotate(360deg)}}
+  @keyframes iris{0%,100%{transform:scale(1)}50%{transform:scale(.82)}}
+  @keyframes recBlink{0%{opacity:1}50%{opacity:.15}}
+  @keyframes beams{0%,100%{opacity:.25}50%{opacity:.85}}
+  @keyframes glint{0%,100%{opacity:.35}50%{opacity:.8}}
+  .scanline{position:absolute;left:22px;right:0;top:22px;height:90px;background:linear-gradient(180deg,transparent,rgba(47,82,255,.16),transparent);z-index:2;pointer-events:none;animation:scan 5.5s linear infinite;mix-blend-mode:screen;}
+  @keyframes scan{0%{transform:translateY(-90px);opacity:0}10%{opacity:1}90%{opacity:1}100%{transform:translateY(460px);opacity:0}}
+  .timecode .dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#FF4D4D;margin-right:6px;vertical-align:1px;animation:recBlink 1s steps(1) infinite;}
+
+  /* Botones con brillo */
+  .btn{position:relative;overflow:hidden;isolation:isolate;}
+  .btn::after{content:"";position:absolute;top:0;left:-130%;width:60%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.4),transparent);transform:skewX(-20deg);transition:left .7s cubic-bezier(.2,.7,.2,1);pointer-events:none;z-index:-1;}
+  .btn:hover::after{left:150%;}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 12px 26px -12px rgba(47,82,255,.6);}
+  .btn-gold:hover,.nav-cta:hover{box-shadow:0 12px 28px -10px rgba(228,167,59,.75);}
+  .btn:active{transform:translateY(0) scale(.97);}
+  .nav-cta{transition:background .2s,box-shadow .3s,transform .2s;}
+  .nav-cta:hover{transform:translateY(-1px);}
+
+  /* Tarjetas con elevación y luz que sigue al mouse */
+  .plan,.svc,.add,.term,.stage,.chip{transition:transform .45s cubic-bezier(.2,.7,.2,1),box-shadow .45s,background .25s,border-color .3s;}
+  .plan:hover{transform:translateY(-10px);box-shadow:0 30px 60px -28px rgba(10,14,27,.5);}
+  .plan.pop:hover{box-shadow:0 34px 70px -26px rgba(228,167,59,.55);}
+  .svc:hover,.add:hover,.term:hover,.chip:hover{transform:translateY(-5px);box-shadow:0 22px 44px -28px rgba(10,14,27,.45);}
+  .stage:hover{transform:translateY(-5px);}
+  .fx-spot{position:relative;}
+  .fx-spot::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .35s;background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgba(47,82,255,.10),transparent 45%);}
+  .plan.pop.fx-spot::after{background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgba(228,167,59,.16),transparent 45%);}
+  .fx-spot:hover::after{opacity:1;}
+  .plan.pop{box-shadow:0 0 0 1px rgba(228,167,59,.35);animation:popGlow 3.5s ease-in-out infinite;}
+  @keyframes popGlow{0%,100%{box-shadow:0 0 0 1px rgba(228,167,59,.3),0 0 0 0 rgba(228,167,59,0)}50%{box-shadow:0 0 0 1px rgba(228,167,59,.6),0 0 36px -6px rgba(228,167,59,.35)}}
+
+  /* Brillos dorados premium */
+  .tag{overflow:hidden;}
+  .tag::after,.plan li.perk::after,tbody td.prem::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.55) 50%,transparent 70%);transform:translateX(-110%);animation:shine 3.6s ease-in-out infinite;pointer-events:none;}
+  .plan li.perk::after{animation-delay:1.2s;}
+  tbody td.prem{position:relative;overflow:hidden;background-size:220% 100%;animation:goldFlow 5s ease-in-out infinite;}
+  tbody td.prem::after{animation-delay:.6s;}
+  .plan li.perk{overflow:hidden;}
+  @keyframes shine{0%{transform:translateX(-110%)}45%,100%{transform:translateX(110%)}}
+  @keyframes goldFlow{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+
+  /* Kicker con cursor de terminal */
+  .kicker::after{content:"_";margin-left:3px;animation:recBlink 1.1s steps(1) infinite;}
+
+  /* Cambio de precio animado */
+  .price.flip .amt,.note.flip{animation:priceFlip .55s cubic-bezier(.2,.7,.2,1);}
+  @keyframes priceFlip{0%{opacity:0;transform:translateY(-14px) rotateX(60deg)}100%{opacity:1;transform:none}}
+
+  /* WhatsApp flotante */
+  .wa-float{animation:waIn .7s 1.8s both cubic-bezier(.2,.8,.2,1.25);transition:transform .25s,box-shadow .25s;}
+  .wa-float:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 16px 30px -10px rgba(37,211,102,.6);}
+  .wa-float::before{content:"";position:absolute;inset:0;border-radius:inherit;animation:waPing 2.6s 2.6s infinite;pointer-events:none;}
+  @keyframes waIn{from{opacity:0;transform:translateY(30px) scale(.8)}to{opacity:1;transform:none}}
+  @keyframes waPing{0%{box-shadow:0 0 0 0 rgba(37,211,102,.55)}80%,100%{box-shadow:0 0 0 18px rgba(37,211,102,0)}}
+
+  /* Botón de sonido */
+  .sound-toggle{position:fixed;left:max(20px,env(safe-area-inset-left,0px));bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:90;display:flex;align-items:center;gap:8px;height:44px;padding:0 16px 0 12px;border-radius:40px;border:1px solid rgba(255,255,255,.18);background:rgba(10,14,27,.82);backdrop-filter:blur(8px);color:var(--white);font:600 12.5px 'Inter',sans-serif;cursor:pointer;box-shadow:0 10px 24px -10px rgba(0,0,0,.5);animation:waIn .7s 2s both cubic-bezier(.2,.8,.2,1.25);transition:border-color .25s,transform .25s;}
+  .sound-toggle:hover{border-color:var(--gold);transform:translateY(-2px);}
+  .sound-toggle svg{width:18px;height:18px;flex:none;}
+  .sound-toggle .bars{display:flex;align-items:flex-end;gap:2px;height:12px;}
+  .sound-toggle .bars i{display:block;width:2px;background:var(--gold);height:3px;border-radius:1px;}
+  .sound-toggle[aria-pressed="true"] .bars i{animation:eq .9s ease-in-out infinite;}
+  .sound-toggle[aria-pressed="true"] .bars i:nth-child(2){animation-delay:.15s;} .sound-toggle[aria-pressed="true"] .bars i:nth-child(3){animation-delay:.3s;} .sound-toggle[aria-pressed="true"] .bars i:nth-child(4){animation-delay:.45s;}
+  @keyframes eq{0%,100%{height:3px}50%{height:12px}}
+  @media (max-width:700px){.sound-toggle .lbl{display:none}.sound-toggle{padding:0 12px}}
+
+  /* Accesibilidad: sin movimiento si el usuario lo pide */
+  /* Modo "movimiento reducido": se quitan desplazamientos grandes,
+     pero se mantienen fundidos suaves, brillos y la cámara viva */
+  @media (prefers-reduced-motion:reduce){
+    .reveal,.reveal.from-left,.reveal.from-right,.reveal.zoom{transform:none!important;transition:opacity .9s ease!important;transition-delay:var(--d,0ms)!important;}
+    .hero h1 .w > i{transform:none!important;}
+    .hero.go h1 .w > i{animation:fadeIn .9s ease both!important;animation-delay:calc(.2s + var(--i) * 70ms)!important;}
+    .hero.go .eyebrow,.hero.go .lede,.hero.go .hero-actions,.hero.go .hero-frame,.hero.go .strip,.hero.go .corner{animation-name:fadeIn!important;}
+    .hero-frame svg{transform:none!important;}
+    .scanline{display:none;}
+    .plan:hover,.svc:hover,.add:hover,.term:hover,.chip:hover,.stage:hover{transform:none;}
+  }
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
   @media (max-width:700px){
     .prob-row{grid-template-columns:1fr;}
     .prob-arrow{height:30px;transform:rotate(90deg);}
@@ -835,6 +965,246 @@
     });
   }
   btns.forEach(b => b.addEventListener('click', () => setMode(b.dataset.mode)));
+</script>
+
+<script>
+/* =========================================================
+   MOTION & FX + SONIDO — Verso Creativo
+   ========================================================= */
+(function(){
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const $ = (s, r=document) => r.querySelector(s);
+  const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
+
+  /* ---------- SONIDO (Web Audio, sin archivos) ---------- */
+  const Sound = {
+    on: false, ctx: null, master: null, last: 0,
+    init(){
+      if (this.ctx) return;
+      const AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) return;
+      this.ctx = new AC();
+      this.master = this.ctx.createGain();
+      this.master.gain.value = 0.9;
+      this.master.connect(this.ctx.destination);
+    },
+    tone(f1, f2, dur, type='sine', vol=0.05, delay=0){
+      if (!this.on || !this.ctx) return;
+      const t = this.ctx.currentTime + delay;
+      const o = this.ctx.createOscillator(), g = this.ctx.createGain();
+      o.type = type; o.frequency.setValueAtTime(f1, t);
+      if (f2) o.frequency.exponentialRampToValueAtTime(f2, t + dur);
+      g.gain.setValueAtTime(0.0001, t);
+      g.gain.exponentialRampToValueAtTime(vol, t + 0.008);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+      o.connect(g); g.connect(this.master); o.start(t); o.stop(t + dur + 0.02);
+    },
+    noise(dur, vol=0.04, from=600, to=3200){
+      if (!this.on || !this.ctx) return;
+      const t = this.ctx.currentTime, n = Math.floor(this.ctx.sampleRate * dur);
+      const buf = this.ctx.createBuffer(1, n, this.ctx.sampleRate), d = buf.getChannelData(0);
+      for (let i = 0; i < n; i++) d[i] = Math.random() * 2 - 1;
+      const src = this.ctx.createBufferSource(); src.buffer = buf;
+      const bp = this.ctx.createBiquadFilter(); bp.type = 'bandpass'; bp.Q.value = 1.2;
+      bp.frequency.setValueAtTime(from, t); bp.frequency.exponentialRampToValueAtTime(to, t + dur);
+      const g = this.ctx.createGain();
+      g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vol, t + dur * 0.35);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+      src.connect(bp); bp.connect(g); g.connect(this.master); src.start(t); src.stop(t + dur);
+    },
+    hover(){ const now = performance.now(); if (now - this.last < 70) return; this.last = now; this.tone(2200, 1700, 0.045, 'sine', 0.018); },
+    click(){ this.tone(520, 160, 0.11, 'triangle', 0.07); this.tone(1400, 900, 0.05, 'sine', 0.02); },
+    whoosh(){ this.noise(0.28, 0.05, 500, 3600); },
+    swoosh(){ this.noise(0.22, 0.04, 3000, 700); },
+    chime(){ this.tone(880, 880, 0.35, 'sine', 0.05); this.tone(1318.5, 1318.5, 0.45, 'sine', 0.04, 0.09); this.tone(1760, 1760, 0.5, 'sine', 0.025, 0.18); },
+    tick(){ this.tone(3000, 2400, 0.03, 'square', 0.012); }
+  };
+
+  // Botón flotante para activar/desactivar sonido (apagado por defecto)
+  const st = document.createElement('button');
+  st.type = 'button'; st.className = 'sound-toggle';
+  st.setAttribute('aria-pressed', 'false'); st.setAttribute('aria-label', 'Activar efectos de sonido');
+  st.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path class="wv" d="M15.5 8.5a5 5 0 0 1 0 7"/><path class="wv" d="M18.5 5.5a9 9 0 0 1 0 13"/><path class="mute" d="M16 9l5 5M21 9l-5 5"/></svg><span class="bars"><i></i><i></i><i></i><i></i></span><span class="lbl">Sonido</span>';
+  document.body.appendChild(st);
+  const paintSound = () => {
+    st.setAttribute('aria-pressed', String(Sound.on));
+    st.setAttribute('aria-label', Sound.on ? 'Desactivar efectos de sonido' : 'Activar efectos de sonido');
+    $$('.wv', st).forEach(p => p.style.display = Sound.on ? '' : 'none');
+    $('.mute', st).style.display = Sound.on ? 'none' : '';
+  };
+  let saved = null; try { saved = localStorage.getItem('verso-sound'); } catch(e){}
+  paintSound();
+  st.addEventListener('click', () => {
+    Sound.init();
+    if (Sound.ctx && Sound.ctx.state === 'suspended') Sound.ctx.resume();
+    Sound.on = !Sound.on;
+    try { localStorage.setItem('verso-sound', Sound.on ? '1' : '0'); } catch(e){}
+    paintSound();
+    if (Sound.on) Sound.chime();
+  });
+  // Si el visitante ya lo había activado antes, se reactiva en su primer toque
+  if (saved === '1') {
+    const arm = () => { Sound.init(); Sound.on = true; paintSound(); document.removeEventListener('pointerdown', arm, true); };
+    document.addEventListener('pointerdown', arm, true);
+  }
+
+  // Sonidos de interfaz
+  const hoverables = '.btn, .nav-cta, .nav-links a, .toggle button, .plan, .add, .svc, .chip';
+  if (fine) document.addEventListener('mouseover', e => {
+    const el = e.target.closest(hoverables);
+    if (el && !el.contains(e.relatedTarget)) Sound.hover();
+  });
+  document.addEventListener('click', e => {
+    const t = e.target;
+    if (t.closest('.sound-toggle')) return;
+    if (t.closest('a[href*="wa.me"]')) { Sound.chime(); return; }
+    if (t.closest('.toggle button')) { Sound.swoosh(); return; }
+    if (t.closest('#burger')) { Sound.whoosh(); return; }
+    if (t.closest('a[href^="#"]')) { Sound.whoosh(); return; }
+    if (t.closest('.btn, button, a')) Sound.click();
+  });
+
+  /* ---------- BARRA DE PROGRESO + HEADER ---------- */
+  const bar = document.createElement('div'); bar.className = 'scroll-progress'; document.body.appendChild(bar);
+  const header = $('header');
+  let ticking = false;
+  const onScroll = () => {
+    if (ticking) return; ticking = true;
+    requestAnimationFrame(() => {
+      const h = document.documentElement.scrollHeight - innerHeight;
+      bar.style.transform = 'scaleX(' + (h > 0 ? scrollY / h : 0) + ')';
+      header && header.classList.toggle('scrolled', scrollY > 30);
+      ticking = false;
+    });
+  };
+  addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+  /* ---------- HERO: entrada palabra por palabra ---------- */
+  const hero = $('.hero'), h1 = $('.hero h1');
+  if (h1) {
+    let i = 0;
+    const wrap = node => {
+      Array.from(node.childNodes).forEach(n => {
+        if (n.nodeType === 3) {
+          const frag = document.createDocumentFragment();
+          n.textContent.split(/(\s+)/).forEach(part => {
+            if (!part) return;
+            if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(' ')); return; }
+            const w = document.createElement('span'); w.className = 'w';
+            const inner = document.createElement('i'); inner.textContent = part; inner.style.setProperty('--i', i++);
+            w.appendChild(inner); frag.appendChild(w);
+          });
+          n.replaceWith(frag);
+        } else if (n.nodeType === 1) wrap(n);
+      });
+    };
+    wrap(h1);
+  }
+  requestAnimationFrame(() => hero && hero.classList.add('go'));
+
+  /* ---------- CÁMARA DEL HERO VIVA ---------- */
+  const svg = $('.hero-frame svg');
+  if (svg) {
+    $$('circle', svg).forEach(c => {
+      const r = c.getAttribute('r');
+      if (r === '58') c.classList.add('fx-lens');
+      if (r === '36') c.classList.add('fx-iris');
+      if (r === '7') c.classList.add('fx-rec');
+      if (r === '6') c.classList.add('fx-glint');
+    });
+    $$('g', svg).forEach(g => { if (g.getAttribute('stroke') === '#E4A73B') g.classList.add('fx-beams'); });
+    const frame = $('.hero-frame');
+    const scan = document.createElement('span'); scan.className = 'scanline'; frame.appendChild(scan);
+    if (fine && !reduce) {
+      hero.addEventListener('mousemove', e => {
+        const r = frame.getBoundingClientRect();
+        const x = (e.clientX - (r.left + r.width / 2)) / r.width;
+        const y = (e.clientY - (r.top + r.height / 2)) / r.height;
+        svg.style.setProperty('--ry', (x * 10).toFixed(2) + 'deg');
+        svg.style.setProperty('--rx', (-y * 8).toFixed(2) + 'deg');
+      });
+      hero.addEventListener('mouseleave', () => { svg.style.setProperty('--ry', '0deg'); svg.style.setProperty('--rx', '0deg'); });
+    }
+  }
+  // Timecode REC en vivo
+  const tc = $('.timecode');
+  if (tc) {
+    const t0 = Date.now() - 24000;
+    const pad = n => String(n).padStart(2, '0');
+    const draw = () => {
+      const s = Math.floor((Date.now() - t0) / 1000);
+      tc.innerHTML = '<span class="dot"></span>REC · ' + pad(Math.floor(s / 3600)) + ':' + pad(Math.floor(s / 60) % 60) + ':' + pad(s % 60);
+    };
+    draw(); setInterval(draw, 1000);
+  }
+
+  /* ---------- REVEAL AL HACER SCROLL ---------- */
+  const groups = [
+    ['.head', ''], ['.clients-label', ''], ['.client', 'zoom'], ['.prob-row', 'from-left'],
+    ['.svc', ''], ['.stage', ''], ['.plan', ''], ['.fine', ''], ['.compare', ''],
+    ['.add', ''], ['.manual-grid > div:first-child', 'from-left'], ['.chip', 'zoom'],
+    ['.audit-grid > *', ''], ['.term', ''], ['.why-grid > *', ''], ['footer .wrap > *', '']
+  ];
+  const targets = [];
+  groups.forEach(([sel, kind]) => {
+    $$(sel).forEach(el => {
+      if (el.closest('.hero') || el.classList.contains('reveal')) return;
+      const sibs = Array.from(el.parentElement.children).filter(c => c.matches(sel));
+      const idx = Math.max(0, sibs.indexOf(el));
+      el.classList.add('reveal'); if (kind) el.classList.add(kind);
+      el.style.setProperty('--d', Math.min(idx, 6) * 90 + 'ms');
+      targets.push(el);
+    });
+  });
+  const done = el => {
+    // al terminar, liberamos el elemento para que los efectos hover funcionen limpios
+    const end = () => { el.classList.remove('reveal', 'is-in', 'from-left', 'from-right', 'zoom'); el.style.removeProperty('--d'); };
+    el.addEventListener('transitionend', end, { once: true });
+    setTimeout(end, 1800);
+  };
+  if (!('IntersectionObserver' in window)) {
+    targets.forEach(el => el.classList.remove('reveal'));
+  } else {
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(en => {
+        if (!en.isIntersecting) return;
+        en.target.classList.add('is-in'); done(en.target); io.unobserve(en.target);
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    targets.forEach(el => io.observe(el));
+  }
+
+  /* ---------- CONTADORES ---------- */
+  const counters = $$('.strip-item b');
+  const runCount = el => {
+    const end = parseInt(el.textContent, 10); if (isNaN(end)) return;
+    const dur = 1100, t0 = performance.now();
+    const step = now => {
+      const p = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(end * e);
+      if (p < 1) requestAnimationFrame(step); else el.textContent = end;
+    };
+    el.textContent = '0'; requestAnimationFrame(step);
+  };
+  setTimeout(() => counters.forEach((c, i) => setTimeout(() => runCount(c), i * 120)), 1400);
+
+  /* ---------- LUZ QUE SIGUE AL MOUSE EN TARJETAS ---------- */
+  if (fine) $$('.plan, .add, .svc').forEach(card => {
+    card.classList.add('fx-spot');
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+      card.style.setProperty('--my', (e.clientY - r.top) + 'px');
+    });
+  });
+
+  /* ---------- PRECIO ANIMADO AL CAMBIAR MENSUAL/TRIMESTRAL ---------- */
+  $$('.toggle button').forEach(b => b.addEventListener('click', () => {
+    $$('.plan .price, .plan .note').forEach(el => { el.classList.remove('flip'); void el.offsetWidth; el.classList.add('flip'); });
+    if (Sound.on) $$('.plan').forEach((p, i) => Sound.tick && setTimeout(() => Sound.tick(), 60 + i * 70));
+  }));
+})();
 </script>
 </body>
 </html>
